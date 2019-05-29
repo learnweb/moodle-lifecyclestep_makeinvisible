@@ -22,8 +22,10 @@
  * @copyright  2019 Justus Dieckmann WWU
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace tool_lifecycle\step;
 
+use tool_lifecycle\manager\process_data_manager;
 use tool_lifecycle\response\step_response;
 
 defined('MOODLE_INTERNAL') || die();
@@ -31,7 +33,6 @@ defined('MOODLE_INTERNAL') || die();
 require_once(__DIR__ . '/../lib.php');
 
 class makeinvisible extends libbase {
-
 
     /**
      * Stores old visibility and hides course
@@ -42,14 +43,18 @@ class makeinvisible extends libbase {
      * @return step_response
      */
     public function process_course($processid, $instanceid, $course) {
-        global $DB;
-        $record = new \stdClass();
-        $record->courseid = $course->id;
-        $record->visible = $course->visible;
-        $DB->insert_record('lifecyclestep_makeinvisible', $record);
-
+        process_data_manager::set_process_data($processid, $instanceid, 'visible', $course->visible);
+        process_data_manager::set_process_data($processid, $instanceid, 'visibleold', $course->visibleold);
         course_change_visibility($course->id, false);
         return step_response::proceed();
+    }
+
+    public function rollback_course($processid, $instanceid, $course) {
+        $record = new \stdClass();
+        $record->id = $course->id;
+        $record->visible = (bool) process_data_manager::get_process_data($processid, $instanceid, 'visible');
+        $record->visibleold = (bool) process_data_manager::get_process_data($processid, $instanceid, 'visibleold');
+        update_course($record);
     }
 
     public function get_subpluginname() {
