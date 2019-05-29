@@ -30,21 +30,25 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../lib.php');
 
-class dummy extends libbase {
+class makeinvisible extends libbase {
 
 
     /**
-     * Processes the course and returns a repsonse.
-     * The response tells either
-     *  - that the subplugin is finished processing.
-     *  - that the subplugin is not yet finished processing.
-     *  - that a rollback for this course is necessary.
+     * Stores old visibility and hides course
+     *
      * @param int $processid of the respective process.
      * @param int $instanceid of the step instance.
      * @param mixed $course to be processed.
      * @return step_response
      */
     public function process_course($processid, $instanceid, $course) {
+        global $DB;
+        $record = new \stdClass();
+        $record->courseid = $course->id;
+        $record->visible = $course->visible;
+        $DB->insert_record('lifecyclestep_makeinvisible', $record);
+
+        course_change_visibility($course->id, false);
         return step_response::proceed();
     }
 
