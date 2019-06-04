@@ -44,12 +44,22 @@ class lifecyclestep_makeinvisible_make_invisible_testcase extends \advanced_test
         settings_manager::save_settings($step->id, SETTINGS_TYPE_STEP, 'email', null);
         workflow_manager::handle_action(ACTION_WORKFLOW_ACTIVATE, $workflow->id);
 
+        // Course1 is visible in an visible category. It should be hidden after step and shown after rollback.
         $course1 = $this->getDataGenerator()->create_course();
+        // Course2 is invisible in an visible category. It should be hidden after step and hidden after rollback.
         $course2 = $this->getDataGenerator()->create_course();
         course_change_visibility($course2->id, false);
+        $cat = core_course_category::create(['name' => 'aaa']);
+        // Course3 is visible in an (later) invisible category. It should be hidden after rollback.
+        $course3 = $this->getDataGenerator()->create_course(['category' => $cat->id]);
+        // Course4 is invisible, but changed to shown after step. It should remain shown after rollback.
+        $course4 = $this->getDataGenerator()->create_course();
+        course_change_visibility($course4->id, false);
 
         $process1 = process_manager::manually_trigger_process($course1->id, $trigger->id);
         $process2 = process_manager::manually_trigger_process($course2->id, $trigger->id);
+        $process3 = process_manager::manually_trigger_process($course3->id, $trigger->id);
+        $process4 = process_manager::manually_trigger_process($course4->id, $trigger->id);
 
         $processor = new processor();
         $processor->process_courses();
@@ -60,16 +70,28 @@ class lifecyclestep_makeinvisible_make_invisible_testcase extends \advanced_test
         $this->assertFalse((bool) $course1->visible);
         $this->assertFalse((bool) $course2->visible);
 
+        course_change_visibility($course4->id, true);
+        $cat->hide();
+
         $process1 = process_manager::get_process_by_id($process1->id);
         $process2 = process_manager::get_process_by_id($process2->id);
+        $process3 = process_manager::get_process_by_id($process3->id);
+        $process4 = process_manager::get_process_by_id($process4->id);
+
         process_manager::rollback_process($process1);
         process_manager::rollback_process($process2);
+        process_manager::rollback_process($process3);
+        process_manager::rollback_process($process4);
 
         $course1 = get_course($course1->id);
         $course2 = get_course($course2->id);
+        $course3 = get_course($course3->id);
+        $course4 = get_course($course4->id);
 
         $this->assertTrue((bool) $course1->visible);
         $this->assertFalse((bool) $course2->visible);
+        $this->assertFalse((bool) $course3->visible);
+        $this->assertTrue((bool) $course4->visible);
     }
 
 }
