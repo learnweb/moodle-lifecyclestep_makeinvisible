@@ -26,8 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../../tests/generator/lib.php');
 
-//require_once(__DIR__ . '/../../../lib.php');
-
 use tool_lifecycle\manager\process_manager;
 use tool_lifecycle\manager\settings_manager;
 use tool_lifecycle\manager\workflow_manager;
