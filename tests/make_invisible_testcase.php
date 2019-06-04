@@ -32,7 +32,7 @@ use tool_lifecycle\processor;
  * @copyright  2019 Justus Dieckmann
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class make_invisible_testcase extends \advanced_testcase {
+class lifecyclestep_makeinvisible_make_invisible_testcase extends \advanced_testcase {
 
     public function test_make_invisible() {
         $this->resetAfterTest(true);
