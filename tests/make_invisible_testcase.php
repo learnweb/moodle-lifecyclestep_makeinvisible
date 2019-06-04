@@ -14,14 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Tests the field is manual after activating workflows.
- *
- * @package    lifecyclestep_makeinvisible
- * @group      lifecyclestep_makeinvisible
- * @copyright  2019 Justus Dieckmann
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../../tests/generator/lib.php');
@@ -31,6 +23,15 @@ use tool_lifecycle\manager\settings_manager;
 use tool_lifecycle\manager\workflow_manager;
 use tool_lifecycle\processor;
 
+/**
+ * Tests the field is manual after activating workflows.
+ *
+ * @package    lifecyclestep_makeinvisible
+ * @group      lifecyclestep_makeinvisible
+ * @category   test
+ * @copyright  2019 Justus Dieckmann
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class make_invisible_testcase extends \advanced_testcase {
 
     public function test_make_invisible() {
@@ -56,8 +57,8 @@ class make_invisible_testcase extends \advanced_testcase {
         $course1 = get_course($course1->id);
         $course2 = get_course($course2->id);
 
-        $this->assertFalse((bool)$course1->visible);
-        $this->assertFalse((bool)$course2->visible);
+        $this->assertFalse((bool) $course1->visible);
+        $this->assertFalse((bool) $course2->visible);
 
         $process1 = process_manager::get_process_by_id($process1->id);
         $process2 = process_manager::get_process_by_id($process2->id);
@@ -67,8 +68,8 @@ class make_invisible_testcase extends \advanced_testcase {
         $course1 = get_course($course1->id);
         $course2 = get_course($course2->id);
 
-        $this->assertTrue((bool)$course1->visible);
-        $this->assertFalse((bool)$course2->visible);
+        $this->assertTrue((bool) $course1->visible);
+        $this->assertFalse((bool) $course2->visible);
     }
 
 }
