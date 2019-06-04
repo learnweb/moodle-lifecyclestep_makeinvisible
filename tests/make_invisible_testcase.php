@@ -24,7 +24,7 @@ use tool_lifecycle\manager\workflow_manager;
 use tool_lifecycle\processor;
 
 /**
- * Tests the field is manual after activating workflows.
+ * Tests the make invisible step.
  *
  * @package    lifecyclestep_makeinvisible
  * @group      lifecyclestep_makeinvisible
