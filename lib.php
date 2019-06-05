@@ -55,7 +55,7 @@ class makeinvisible extends libbase {
             return;
         }
 
-        $cat = \core_course_category::get($course->category);
+        $cat = \core_course_category::get($course->category, MUST_EXIST, true);
         $record = new \stdClass();
         $record->id = $course->id;
         $record->visibleold = (bool) process_data_manager::get_process_data($processid, $instanceid, 'visibleold');
