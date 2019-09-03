@@ -18,10 +18,12 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../../tests/generator/lib.php');
 
+use tool_lifecycle\action;
 use tool_lifecycle\manager\process_manager;
 use tool_lifecycle\manager\settings_manager;
 use tool_lifecycle\manager\workflow_manager;
 use tool_lifecycle\processor;
+use tool_lifecycle\settings_type;
 
 /**
  * Tests the make invisible step.
@@ -41,8 +43,8 @@ class lifecyclestep_makeinvisible_make_invisible_testcase extends \advanced_test
         $trigger = $generator->create_trigger('manual', 'manual', $workflow->id);
         $generator->create_step('makeinvisible', 'makeinvisible', $workflow->id);
         $step = $generator->create_step('email', 'email', $workflow->id);
-        settings_manager::save_settings($step->id, SETTINGS_TYPE_STEP, 'email', null);
-        workflow_manager::handle_action(ACTION_WORKFLOW_ACTIVATE, $workflow->id);
+        settings_manager::save_settings($step->id, settings_type::STEP, 'email', null);
+        workflow_manager::handle_action(action::WORKFLOW_ACTIVATE, $workflow->id);
 
         // Course1 is visible in an visible category. It should be hidden after step and shown after rollback.
         $course1 = $this->getDataGenerator()->create_course();
