@@ -38,6 +38,8 @@ class lifecyclestep_makeinvisible_make_invisible_testcase extends \advanced_test
 
     public function test_make_invisible() {
         $this->resetAfterTest(true);
+        global $USER;
+        $USER->ignoresesskey = true;
         $generator = $this->getDataGenerator()->get_plugin_generator('tool_lifecycle');
         $workflow = $generator->create_workflow([], []);
         $trigger = $generator->create_trigger('manual', 'manual', $workflow->id);
