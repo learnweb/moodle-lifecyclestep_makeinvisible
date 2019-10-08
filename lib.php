@@ -50,17 +50,19 @@ class makeinvisible extends libbase {
     }
 
     public function rollback_course($processid, $instanceid, $course) {
+        global $CFG;
         // If visibility changed, do nothing.
         if ($course->visibleold) {
             return;
         }
 
+        require_once($CFG->dirroot . '/course/lib.php');
         $cat = \core_course_category::get($course->category, MUST_EXIST, true);
         $record = new \stdClass();
         $record->id = $course->id;
         $record->visibleold = (bool) process_data_manager::get_process_data($processid, $instanceid, 'visibleold');
         $record->visible = $record->visibleold && (bool)$cat->visible;
-        update_course($record);
+        \update_course($record);
     }
 
     public function get_subpluginname() {
