@@ -25,6 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2019052900;
+$plugin->version  = 2019102900;
 $plugin->component = 'lifecyclestep_makeinvisible';
 $plugin->requires = 2018120300;
+$plugin->dependencies = array(
+        'tool_lifecycle' => 2019102900
+);
