@@ -17,8 +17,7 @@
 /**
  * Life Cycle Make Invisible Step
  *
- * @package tool_lifecycle_step
- * @subpackage makeinvisible
+ * @package    lifecyclestep_makeinvisible
  * @copyright  2019 Justus Dieckmann WWU
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +26,7 @@ defined('MOODLE_INTERNAL') || die;
 
 $plugin->version  = 2019102900;
 $plugin->component = 'lifecyclestep_makeinvisible';
-$plugin->requires = 2018120300;
+$plugin->requires = 2020061500; // Requires Moodle 3.9+.
 $plugin->dependencies = array(
         'tool_lifecycle' => 2019102900
 );
