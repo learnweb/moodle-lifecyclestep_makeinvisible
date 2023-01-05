@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace lifecyclestep_makeinvisible;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../../../tests/generator/lib.php');
@@ -32,12 +34,12 @@ use tool_lifecycle\processor;
  * @copyright  2019 Justus Dieckmann
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class lifecyclestep_makeinvisible_make_invisible_testcase extends \advanced_testcase {
+class make_invisible_test extends \advanced_testcase {
 
     /**
      * Setup the testcase.
      */
-    public function setUp() {
+    public function setUp(): void {
         global $USER;
         $this->resetAfterTest(true);
 
@@ -59,7 +61,7 @@ class lifecyclestep_makeinvisible_make_invisible_testcase extends \advanced_test
         // Course2 is invisible in an visible category. It should be hidden after step and hidden after rollback.
         $course2 = $this->getDataGenerator()->create_course();
         course_change_visibility($course2->id, false);
-        $cat = core_course_category::create(['name' => 'aaa']);
+        $cat = \core_course_category::create(['name' => 'aaa']);
         // Course3 is visible in an (later) invisible category. It should be hidden after rollback.
         $course3 = $this->getDataGenerator()->create_course(['category' => $cat->id]);
         // Course4 is invisible, but changed to shown after step. It should remain shown after rollback.

@@ -17,8 +17,7 @@
 /**
  * Lang Strings for Make Invisible Step
  *
- * @package tool_lifecycle_step
- * @subpackage makeinvisible
+ * @package    lifecyclestep_makeinvisible
  * @copyright  2019 Justus Dieckmann WWU
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

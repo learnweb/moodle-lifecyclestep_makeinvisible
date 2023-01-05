@@ -17,8 +17,7 @@
 /**
  * lib for Make Invisible Step
  *
- * @package tool_lifecycle_step
- * @subpackage makeinvisible
+ * @package    lifecyclestep_makeinvisible
  * @copyright  2019 Justus Dieckmann WWU
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,6 +31,13 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../lib.php');
 
+/**
+ * lib for Make Invisible Step
+ *
+ * @package    lifecyclestep_makeinvisible
+ * @copyright  2019 Justus Dieckmann WWU
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class makeinvisible extends libbase {
 
     /**
@@ -49,6 +55,12 @@ class makeinvisible extends libbase {
         return step_response::proceed();
     }
 
+    /**
+     * Roll back the changes.
+     * @param int $processid of the respective process.
+     * @param int $instanceid of the step instance.
+     * @param mixed $course to be rolled back.
+     */
     public function rollback_course($processid, $instanceid, $course) {
         global $CFG;
         // If visibility changed, do nothing.
@@ -65,6 +77,10 @@ class makeinvisible extends libbase {
         \update_course($record);
     }
 
+    /**
+     * The technical subplugin name.
+     * @return string
+     */
     public function get_subpluginname() {
         return 'makeinvisible';
     }
