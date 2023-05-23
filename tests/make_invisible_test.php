@@ -39,7 +39,7 @@ class make_invisible_test extends \advanced_testcase {
     /**
      * Setup the testcase.
      */
-    public function setUp(): void {
+    public function setUp() :void {
         global $USER;
         $this->resetAfterTest(true);
 
@@ -47,6 +47,16 @@ class make_invisible_test extends \advanced_testcase {
         $USER->ignoresesskey = true;
     }
 
+    /**
+     * Test the visibility of courses after the step is executed.
+     *
+     * @covers \tool_lifecycle\step\makeinvisible
+     * @return void
+     * @throws coding_exception
+     * @throws dml_exception
+     * @throws dml_transaction_exception
+     * @throws moodle_exception
+     */
     public function test_make_invisible() {
         $generator = $this->getDataGenerator()->get_plugin_generator('tool_lifecycle');
         $workflow = $generator->create_workflow([], []);
