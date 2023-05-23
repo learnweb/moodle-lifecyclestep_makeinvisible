@@ -23,3 +23,4 @@
  */
 
 $string['pluginname'] = 'Make Course Invisible Step';
+$string['privacy:metadata'] = 'Does not store any data';

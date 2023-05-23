@@ -14,21 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace lifecyclestep_makeinvisible\privacy;
+
+use core_privacy\local\metadata\null_provider;
+
 /**
- * Life Cycle Make Invisible Step
+ * Privacy subsystem implementation for lifecyclestep_makeinvisible.
  *
- * @package    lifecyclestep_makeinvisible
- * @copyright  2019 Justus Dieckmann WWU
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     lifecyclestep_makeinvisible
+ * @copyright   WWU Münster
+ * @author      Nina Herrmann
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class provider implements null_provider {
 
-defined('MOODLE_INTERNAL') || die;
-
-$plugin->version = 2023052300;
-$plugin->component = 'lifecyclestep_makeinvisible';
-$plugin->requires = 2020061500; // Requires Moodle 3.9+.
-$plugin->dependencies = array(
-        'tool_lifecycle' => 2022112400
-);
-$plugin->release = 'v4.2-r1';
-$plugin->maturity = MATURITY_STABLE;
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return string the reason
+     */
+    public static function get_reason() : string {
+        return 'privacy:metadata';
+    }
+}
