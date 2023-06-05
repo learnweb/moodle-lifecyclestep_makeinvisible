@@ -2,7 +2,7 @@
 
 This is a step for [Life Cycle](https://github.com/learnweb/moodle-tool_lifecycle), that hides courses.
 
-##Behaviour
+## Behaviour
 
 For each course, moodle saves the visibility for course (```visibleold```) and category seperately.
 The final course visibility (```visible```) will be true, if both ```visibleold``` is true and the category is visible. 
